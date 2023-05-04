@@ -1,0 +1,527 @@
+1.
+
+#include <stdio.h>
+
+int main() {
+    char string[100];
+    
+    printf("Digite uma string: ");
+    fgets(string, 100, stdin);
+    
+    printf("A string digitada foi: %s", string);
+    
+    return 0;
+}
+
+
+2.
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100];
+    int count = 0;
+    
+    printf("Digite uma string: ");
+    scanf("%s", str);
+    
+    for (int i = 0; i < strlen(str); i++) {
+        if (str[i] == '1') {
+            count++;
+        }
+    }
+    
+    printf("Número de 1's na string: %d\n", count);
+    
+    return 0;
+}
+
+
+3.
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char palavra[50];
+
+    printf("Digite uma palavra: ");
+    scanf("%s", palavra);
+
+    printf("Palavra ao contrário: ");
+    for (int i = strlen(palavra) - 1; i >= 0; i--) {
+        printf("%c", palavra[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+4.
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char palavra[100];
+    int num_vogais = 0;
+    char caractere;
+
+    printf("Digite uma palavra: ");
+    scanf("%s", palavra);
+
+    // Contagem de vogais
+    for (int i = 0; i < strlen(palavra); i++) {
+        char letra = tolower(palavra[i]);
+        if (letra == 'a' || letra == 'e' || letra == 'i' || letra == 'o' || letra == 'u') {
+            num_vogais++;
+        }
+    }
+
+    printf("A palavra digitada possui %d vogais.\n", num_vogais);
+
+    printf("Digite um caractere (vogal ou consoante): ");
+    scanf(" %c", &caractere);
+
+    // Substituição de vogais
+    for (int i = 0; i < strlen(palavra); i++) {
+        char letra = tolower(palavra[i]);
+        if (letra == 'a' || letra == 'e' || letra == 'i' || letra == 'o' || letra == 'u') {
+            palavra[i] = caractere;
+        }
+    }
+
+    printf("Palavra com as vogais substituidas: %s\n", palavra);
+
+    return 0;
+}
+
+
+5.
+
+#include <stdio.h>
+
+int main() {
+    char str[100];
+    int i;
+
+    printf("Digite uma string em letras maiúsculas: ");
+    scanf("%s", str);
+
+    for (i = 0; str[i] != '\0'; i++) {
+        if (str[i] >= 'A' && str[i] <= 'Z') { // verifica se é letra maiúscula
+            str[i] = str[i] + 32; // soma 32 para converter em letra minúscula
+        }
+    }
+
+    printf("String em letras minúsculas: %s\n", str);
+
+    return 0;
+}
+
+
+6.
+
+#include <stdio.h>
+
+int main() {
+    char str[100];
+    int i;
+
+    printf("Digite uma string: ");
+    gets(str);
+
+    for (i = 0; str[i] != '\0'; i++) {
+        if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = str[i] - 32;
+        }
+    }
+
+    printf("String em maiusculas: %s\n", str);
+
+    return 0;
+}
+
+
+7.
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char frase[100];
+    printf("Digite uma frase: ");
+    fgets(frase, 100, stdin);
+
+    int tam = strlen(frase);
+    for (int i = 0; i < tam; i++) {
+        if (frase[i] == ' ') { // verifica se é espaço em branco
+            for (int j = i; j < tam; j++) {
+                frase[j] = frase[j+1]; // remove o espaço em branco
+            }
+            tam--; // decrementa o tamanho do vetor
+            i--; // volta uma posição para verificar o próximo caractere
+        }
+    }
+
+    printf("Frase sem espaços em branco: %s\n", frase);
+    return 0;
+}
+
+
+
+8.
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100], l1, l2;
+    int i;
+
+    printf("Digite uma string: ");
+    fgets(str, 100, stdin);
+
+    printf("Digite a letra a ser substituída: ");
+    scanf("%c", &l1);
+
+    printf("Digite a letra substituta: ");
+    scanf(" %c", &l2);
+
+    for (i = 0; i < strlen(str); i++) {
+        if (str[i] == l1) {
+            str[i] = l2;
+        }
+    }
+
+    printf("Nova string: %s\n", str);
+
+    return 0;
+}
+
+
+9.
+
+#include <stdio.h>
+#include <string.h>
+
+#define NUM_CARROS 5
+
+int main() {
+    char carros[NUM_CARROS][20]; // matriz de string para armazenar os modelos dos carros
+    float consumo[NUM_CARROS]; // vetor para armazenar o consumo dos carros
+
+    // preenchendo a matriz de string com os modelos dos carros
+    printf("Informe os modelos dos carros:\n");
+    for (int i = 0; i < NUM_CARROS; i++) {
+        printf("Carro %d: ", i+1);
+        scanf("%s", carros[i]);
+    }
+
+    // preenchendo o vetor com o consumo dos carros
+    printf("\nInforme o consumo dos carros (km/l):\n");
+    for (int i = 0; i < NUM_CARROS; i++) {
+        printf("%s: ", carros[i]);
+        scanf("%f", &consumo[i]);
+    }
+
+    // calculando o modelo mais econômico
+    int indice_mais_economico = 0;
+    for (int i = 1; i < NUM_CARROS; i++) {
+        if (consumo[i] > consumo[indice_mais_economico]) {
+            indice_mais_economico = i;
+        }
+    }
+    printf("\nO modelo mais econômico é: %s\n", carros[indice_mais_economico]);
+
+    // calculando a quantidade de combustível necessária para percorrer 1000 km
+    printf("\nQuantidade de combustível necessária para percorrer 1000 km:\n");
+    for (int i = 0; i < NUM_CARROS; i++) {
+        printf("%s: %.2f litros\n", carros[i], 1000.0/consumo[i]);
+    }
+
+    return 0;
+}
+
+
+10.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+  char nome[100];
+  float valor, desconto, valorAVista;
+
+  // Leitura do nome e valor da mercadoria
+  printf("Digite o nome da mercadoria: ");
+  scanf("%[^\n]", nome);
+  printf("Digite o valor da mercadoria: ");
+  scanf("%f", &valor);
+
+  // Cálculo do desconto e valor a ser pago à vista
+  desconto = 0.1 * valor;
+  valorAVista = valor - desconto;
+
+  // Impressão dos resultados
+  printf("\n\nMercadoria: %s\n", nome);
+  printf("Valor total: R$ %.2f\n", valor);
+  printf("Valor do desconto: R$ %.2f\n", desconto);
+  printf("Valor a ser pago à vista: R$ %.2f\n", valorAVista);
+
+  return 0;
+}
+
+11.
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[100];
+    int i, j;
+
+    printf("Digite uma string: ");
+    scanf("%s", s);
+
+    printf("Digite o valor de i: ");
+    scanf("%d", &i);
+
+    printf("Digite o valor de j: ");
+    scanf("%d", &j);
+
+    int len = strlen(s);
+
+    if (i < 0 || i >= len || j < 0 || j >= len || i > j) {
+        printf("Indices invalidos.\n");
+        return 0;
+    }
+
+    printf("Segmento S[%d..%d]: ", i, j);
+    for (int k = i; k <= j; k++) {
+        printf("%c", s[k]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+12.
+
+#include <stdio.h>
+#include <string.h>
+
+void cesar(char *str) {
+    int i;
+    for(i = 0; i < strlen(str); i++) {
+        if(str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = ((str[i] - 'A') + 3) % 26 + 'A';
+        } else if(str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = ((str[i] - 'a') + 3) % 26 + 'a';
+        }
+    }
+}
+
+int main() {
+    char str[100];
+    printf("Digite uma string: ");
+    fgets(str, 100, stdin);
+    cesar(str);
+    printf("String codificada: %s", str);
+    return 0;
+}
+
+
+13.
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char palavra[50];
+    int tamanho, i, j;
+    int palindromo = 1; // inicialmente, assumimos que é um palíndromo
+
+    printf("Digite uma palavra: ");
+    scanf("%s", palavra);
+
+    tamanho = strlen(palavra);
+
+    // verificando se a palavra é um palíndromo
+    for (i = 0, j = tamanho - 1; i < j; i++, j--) {
+        if (palavra[i] != palavra[j]) {
+            palindromo = 0; // não é um palíndromo
+            break;
+        }
+    }
+
+    // imprimindo o resultado
+    if (palindromo) {
+        printf("A palavra %s eh um palindromo.\n", palavra);
+    } else {
+        printf("A palavra %s nao eh um palindromo.\n", palavra);
+    }
+
+    return 0;
+}
+
+
+14.
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+int main() {
+    char str1[MAX_SIZE], str2[MAX_SIZE];
+    int n, i;
+
+    printf("Digite a primeira string: ");
+    fgets(str1, MAX_SIZE, stdin);
+
+    printf("Digite a segunda string: ");
+    fgets(str2, MAX_SIZE, stdin);
+
+    printf("Digite o valor de N: ");
+    scanf("%d", &n);
+
+    // Remove o caractere '\n' do final da string 1 (se houver)
+    if (strchr(str1, '\n') != NULL) {
+        str1[strcspn(str1, "\n")] = '\0';
+    }
+
+    // Concatena no máximo N caracteres da string 2 na string 1
+    for (i = 0; str2[i] != '\0' && i < n; i++) {
+        str1[strlen(str1)] = str2[i];
+    }
+
+    // Adiciona o caractere nulo de término na string 1
+    str1[strlen(str1)] = '\0';
+
+    printf("String concatenada: %s\n", str1);
+
+    return 0;
+}
+
+
+15.
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s1[21], s2[21], c1, c2;
+    int opcao, posicao, tamanho, contador, comp;
+
+    do {
+        printf("Menu de opcoes:\n");
+        printf("1- Ler uma string S1 (tamanho maximo 20 caracteres)\n");
+        printf("2- Imprimir o tamanho da string S1\n");
+        printf("3- Comparar a string S1 com uma nova string S2 fornecida pelo usuario\n");
+        printf("4- Concatenar a string S1 com uma nova string S2\n");
+        printf("5- Imprimir a string S1 de forma reversa\n");
+        printf("6- Contar quantas vezes um dado caractere aparece na string S1\n");
+        printf("7- Substituir a primeira ocorrencia do caractere C1 da string S1 pelo caractere C2\n");
+        printf("8- Verificar se uma string S2 e substring de S1\n");
+        printf("9- Retornar uma substring da string S1\n");
+        printf("0- Sair\n");
+        printf("Digite a opcao desejada: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("Digite a string S1 (maximo 20 caracteres): ");
+                scanf(" %20[^\n]", s1);
+                break;
+
+            case 2:
+                tamanho = strlen(s1);
+                printf("Tamanho da string S1: %d\n", tamanho);
+                break;
+
+            case 3:
+                printf("Digite a string S2 (maximo 20 caracteres): ");
+                scanf(" %20[^\n]", s2);
+                comp = strcmp(s1, s2);
+                if (comp == 0) {
+                    printf("As strings sao iguais\n");
+                } else {
+                    printf("As strings sao diferentes\n");
+                }
+                break;
+
+            case 4:
+                printf("Digite a string S2 (maximo 20 caracteres): ");
+                scanf(" %20[^\n]", s2);
+                strcat(s1, s2);
+                printf("Resultado da concatenacao: %s\n", s1);
+                break;
+
+            case 5:
+                tamanho = strlen(s1);
+                printf("S1 de forma reversa: ");
+                for (int i = tamanho - 1; i >= 0; i--) {
+                    printf("%c", s1[i]);
+                }
+                printf("\n");
+                break;
+
+            case 6:
+                printf("Digite o caractere a ser contado: ");
+                scanf(" %c", &c1);
+                contador = 0;
+                for (int i = 0; i < strlen(s1); i++) {
+                    if (s1[i] == c1) {
+                        contador++;
+                    }
+                }
+                printf("O caractere '%c' aparece %d vezes na string S1\n", c1, contador);
+                break;
+
+            case 7:
+                printf("Digite o caractere a ser substituido: ");
+                scanf(" %c", &c1);
+                printf("Digite o caractere substituto: ");
+                scanf(" %c", &c2);
+                for (int i = 0; i < strlen(s1); i++) {
+                    if (s1[i] == c1) {
+                        s1[i] = c2;
+                        break;
+                    }
+               
+
+
+16.
+
+#include <stdio.h>
+
+int main() {
+    char sequencia[] = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908727492190169972088809377665727333001053367881220235421809751254540594752243525849077116705560136048395864467063244157221553975369781797784617406495514929086256932197846862248283972241375657056057490261407972968652414535100474821663704844031998900088952434506585412275886668811642717147992444292823086346567481391912316282458617866458359124566529476545682848912883142607690042242190226710556263211111093705442175069416589604080719840385096245544436298123098789927244289091888458015616609791913387549920052406368991256071760605886116467109405077541002256983155200055935729725762665396631964259550499108135030823511256623825380453041171958411660999201575535227473081911318437604183507073010331640136306271707946689705461686714";
+    int tam = sizeof(sequencia) - 1; // desconsidera o caractere '\0'
+    int i, j, produto, max_produto = 0;
+    char max_seq[6] = "";
+
+    for (i = 0; i < tam - 4; i++) {
+        produto = 1;
+        for (j = i; j < i + 5; j++) {
+            produto *= sequencia[j] - '0'; // converte o caractere para o dígito correspondente
+        }
+        if (produto > max_produto) {
+            max_produto = produto;
+            strncpy(max_seq, &sequencia[i], 5);
+            max_seq[5] = '\0'; // adiciona o caractere de término de string
+        }
+    }
+
+    printf("A sequencia de 5 digitos com maior produto eh: %s\n", max_seq);
+    printf("O valor do produto eh: %d\n", max_produto);
+
+    return 0;
+}
+
+
