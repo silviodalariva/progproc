@@ -1,0 +1,1086 @@
+1. 
+typedef struct {
+    int hora;
+    int minutos;
+    int segundos;
+} Horario;
+
+typedef struct {
+    int dia;
+    int mes;
+    int ano;
+} Data;
+
+typedef struct {
+    Data data;
+    Horario horario;
+    char texto[100];
+} Compromisso;
+
+
+2.
+
+#include <stdio.h>
+
+struct Pessoa {
+    char nome[50];
+    int idade;
+    char endereco[100];
+};
+
+int main() {
+    struct Pessoa pessoa;
+
+    printf("Digite o nome: ");
+    fgets(pessoa.nome, 50, stdin);
+
+    printf("Digite a idade: ");
+    scanf("%d", &pessoa.idade);
+
+    printf("Digite o endereco: ");
+    getchar();
+    fgets(pessoa.endereco, 100, stdin);
+
+    printf("\nDados da Pessoa:\n");
+    printf("Nome: %s", pessoa.nome);
+    printf("Idade: %d\n", pessoa.idade);
+    printf("Endereco: %s", pessoa.endereco);
+
+    return 0;
+}
+
+
+3.
+
+#include <stdio.h>
+
+struct Aluno {
+    char nome[50];
+    int matricula;
+    char curso[50];
+};
+
+int main() {
+    struct Aluno alunos[5];
+
+    for (int i = 0; i < 5; i++) {
+        fgets(alunos[i].nome, 50, stdin);
+        scanf("%d", &alunos[i].matricula);
+        getchar();
+        fgets(alunos[i].curso, 50, stdin);
+    }
+
+    printf("\nDados dos alunos:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Aluno %d:\n", i + 1);
+        printf("Nome: %s", alunos[i].nome);
+        printf("Número de matrícula: %d\n", alunos[i].matricula);
+        printf("Curso: %s", alunos[i].curso);
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+4.
+
+#include <stdio.h>
+
+struct Aluno {
+    int matricula;
+    char nome[50];
+    float nota1;
+    float nota2;
+    float nota3;
+    float media;
+};
+
+int main() {
+    struct Aluno alunos[5];
+    int i;
+
+    printf("=== Entrada de Dados ===\n");
+    for (i = 0; i < 5; i++) {
+        printf("\nAluno %d\n", i + 1);
+
+        printf("Digite a matrícula: ");
+        scanf("%d", &alunos[i].matricula);
+
+        printf("Digite o nome: ");
+        scanf(" %[^\n]s", alunos[i].nome);
+
+        printf("Digite a nota da primeira prova: ");
+        scanf("%f", &alunos[i].nota1);
+
+        printf("Digite a nota da segunda prova: ");
+        scanf("%f", &alunos[i].nota2);
+
+        printf("Digite a nota da terceira prova: ");
+        scanf("%f", &alunos[i].nota3);
+
+        alunos[i].media = (alunos[i].nota1 + alunos[i].nota2 + alunos[i].nota3) / 3;
+    }
+
+    float maiorNota1 = alunos[0].nota1;
+    int indexMaiorNota1 = 0;
+    for (i = 1; i < 5; i++) {
+        if (alunos[i].nota1 > maiorNota1) {
+            maiorNota1 = alunos[i].nota1;
+            indexMaiorNota1 = i;
+        }
+    }
+    printf("\nAluno com maior nota na primeira prova:\n");
+    printf("Nome: %s\n", alunos[indexMaiorNota1].nome);
+    printf("Nota: %.2f\n", alunos[indexMaiorNota1].nota1);
+
+    float maiorMedia = alunos[0].media;
+    int indexMaiorMedia = 0;
+    for (i = 1; i < 5; i++) {
+        if (alunos[i].media > maiorMedia) {
+            maiorMedia = alunos[i].media;
+            indexMaiorMedia = i;
+        }
+    }
+    printf("\nAluno com maior média geral:\n");
+    printf("Nome: %s\n", alunos[indexMaiorMedia].nome);
+    printf("Média: %.2f\n", alunos[indexMaiorMedia].media);
+
+    float menorMedia = alunos[0].media;
+    int indexMenorMedia = 0;
+    for (i = 1; i < 5; i++) {
+        if (alunos[i].media < menorMedia) {
+            menorMedia = alunos[i].media;
+            indexMenorMedia = i;
+        }
+    }
+    printf("\nAluno com menor média geral:\n");
+    printf("Nome: %s\n", alunos[indexMenorMedia].nome);
+    printf("Média: %.2f\n", alunos[indexMenorMedia].media);
+
+    printf("\nSituação dos alunos:\n");
+    for (i = 0; i < 5; i++) {
+        if (alunos[i].media >= 6.0) {
+            printf("%s: Aprovado\n", alunos[i].nome);
+        } else {
+            printf("%s: Reprovado\n", alunos[i].nome);
+        }
+    }
+
+    return 0;
+}
+
+
+
+5.
+
+#include <stdio.h>
+
+struct Vetor {
+    float a;
+    float b;
+    float c;
+};
+
+struct Vetor somaVetores(struct Vetor vetor1, struct Vetor vetor2) {
+    struct Vetor resultado;
+    resultado.a = vetor1.a + vetor2.a;
+    resultado.b = vetor1.b + vetor2.b;
+    resultado.c = vetor1.c + vetor2.c;
+    return resultado;
+}
+
+int main() {
+    struct Vetor vetor1, vetor2, resultado;
+
+    printf("Digite as coordenadas do primeiro vetor:\n");
+    printf("a: ");
+    scanf("%f", &vetor1.a);
+    printf("b: ");
+    scanf("%f", &vetor1.b);
+    printf("c: ");
+    scanf("%f", &vetor1.c);
+
+    printf("\nDigite as coordenadas do segundo vetor:\n");
+    printf("a: ");
+    scanf("%f", &vetor2.a);
+    printf("b: ");
+    scanf("%f", &vetor2.b);
+    printf("c: ");
+    scanf("%f", &vetor2.c);
+
+    resultado = somaVetores(vetor1, vetor2);
+
+    printf("\nResultado da soma dos vetores:\n");
+    printf("a: %.2f\n", resultado.a);
+    printf("b: %.2f\n", resultado.b);
+    printf("c: %.2f\n", resultado.c);
+
+    return 0;
+}
+
+
+
+6.
+#include <stdio.h>
+
+struct Aluno {
+    int matricula;
+    char nome[50];
+    int codigoDisciplina;
+    float nota1;
+    float nota2;
+    float mediaFinal;
+};
+
+int main() {
+    struct Aluno alunos[10];
+    int quantidadeAlunos;
+
+    printf("Digite a quantidade de alunos (até 10): ");
+    scanf("%d", &quantidadeAlunos);
+
+    if (quantidadeAlunos > 10) {
+        printf("Quantidade de alunos excede o limite.\n");
+        return 0;
+    }
+
+    for (int i = 0; i < quantidadeAlunos; i++) {
+        printf("\nAluno %d\n", i + 1);
+
+        printf("Matrícula: ");
+        scanf("%d", &alunos[i].matricula);
+
+        printf("Nome: ");
+        scanf(" %[^\n]s", alunos[i].nome);
+
+        printf("Código da Disciplina: ");
+        scanf("%d", &alunos[i].codigoDisciplina);
+
+        printf("Nota 1: ");
+        scanf("%f", &alunos[i].nota1);
+
+        printf("Nota 2: ");
+        scanf("%f", &alunos[i].nota2);
+
+        alunos[i].mediaFinal = (alunos[i].nota1 * 1.0 + alunos[i].nota2 * 2.0) / 3.0;
+    }
+
+    printf("\n=== Lista de Alunos ===\n");
+    for (int i = 0; i < quantidadeAlunos; i++) {
+        printf("Aluno %d\n", i + 1);
+        printf("Matrícula: %d\n", alunos[i].matricula);
+        printf("Nome: %s\n", alunos[i].nome);
+        printf("Código da Disciplina: %d\n", alunos[i].codigoDisciplina);
+        printf("Média Final: %.2f\n", alunos[i].mediaFinal);
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+7.
+
+#include <stdio.h>
+#include <math.h>
+
+struct PontoPolar {
+    float raio;
+    float argumento;
+};
+
+struct PontoCartesiano {
+    float x;
+    float y;
+};
+
+struct PontoCartesiano converteParaCartesiano(struct PontoPolar polar) {
+    struct PontoCartesiano cartesiano;
+    cartesiano.x = polar.raio * cos(polar.argumento);
+    cartesiano.y = polar.raio * sin(polar.argumento);
+    return cartesiano;
+}
+
+int main() {
+    struct PontoPolar polar;
+    struct PontoCartesiano cartesiano;
+
+    printf("Digite as coordenadas polares (raio e argumento em radianos):\n");
+    printf("Raio: ");
+    scanf("%f", &polar.raio);
+    printf("Argumento: ");
+    scanf("%f", &polar.argumento);
+
+    cartesiano = converteParaCartesiano(polar);
+
+    printf("\nCoordenadas cartesianas:\n");
+    printf("x: %.2f\n", cartesiano.x);
+    printf("y: %.2f\n", cartesiano.y);
+
+    return 0;
+}
+
+
+
+8.
+
+#include <stdio.h>
+
+struct Funcionario {
+    char nome[50];
+    int idade;
+    char sexo;
+    char cpf[12];
+    char dataNascimento[11];
+    int codigoSetor;
+    char cargo[30];
+    float salario;
+};
+
+int main() {
+    struct Funcionario funcionario;
+
+    printf("Digite os dados do funcionário:\n");
+    
+    printf("Nome: ");
+    scanf(" %[^\n]s", funcionario.nome);
+
+    printf("Idade: ");
+    scanf("%d", &funcionario.idade);
+
+    printf("Sexo (M/F): ");
+    scanf(" %c", &funcionario.sexo);
+
+    printf("CPF: ");
+    scanf(" %[^\n]s", funcionario.cpf);
+
+    printf("Data de Nascimento (DD/MM/AAAA): ");
+    scanf(" %[^\n]s", funcionario.dataNascimento);
+
+    printf("Código do Setor (0-99): ");
+    scanf("%d", &funcionario.codigoSetor);
+
+    printf("Cargo: ");
+    scanf(" %[^\n]s", funcionario.cargo);
+
+    printf("Salário: ");
+    scanf("%f", &funcionario.salario);
+
+    printf("\n=== Dados do Funcionário ===\n");
+    printf("Nome: %s\n", funcionario.nome);
+    printf("Idade: %d\n", funcionario.idade);
+    printf("Sexo: %c\n", funcionario.sexo);
+    printf("CPF: %s\n", funcionario.cpf);
+    printf("Data de Nascimento: %s\n", funcionario.dataNascimento);
+    printf("Código do Setor: %d\n", funcionario.codigoSetor);
+    printf("Cargo: %s\n", funcionario.cargo);
+    printf("Salário: %.2f\n", funcionario.salario);
+
+    return 0;
+}
+
+
+9.
+#include <stdio.h>
+#include <math.h>
+
+typedef struct {
+    float real;
+    float imaginaria;
+} Complexo;
+
+Complexo soma(Complexo z, Complexo w) {
+    Complexo resultado;
+    resultado.real = z.real + w.real;
+    resultado.imaginaria = z.imaginaria + w.imaginaria;
+    return resultado;
+}
+
+Complexo subtracao(Complexo z, Complexo w) {
+    Complexo resultado;
+    resultado.real = z.real - w.real;
+    resultado.imaginaria = z.imaginaria - w.imaginaria;
+    return resultado;
+}
+
+Complexo produto(Complexo z, Complexo w) {
+    Complexo resultado;
+    resultado.real = z.real * w.real - z.imaginaria * w.imaginaria;
+    resultado.imaginaria = z.real * w.imaginaria + z.imaginaria * w.real;
+    return resultado;
+}
+
+float modulo(Complexo z) {
+    return sqrt(z.real * z.real + z.imaginaria * z.imaginaria);
+}
+
+int main() {
+    Complexo z, w, resultadoSoma, resultadoSubtracao, resultadoProduto;
+    float moduloZ, moduloW;
+
+    printf("Digite o primeiro número complexo (parte real e parte imaginária separados por espaço): ");
+    scanf("%f %f", &z.real, &z.imaginaria);
+
+    printf("Digite o segundo número complexo (parte real e parte imaginária separados por espaço): ");
+    scanf("%f %f", &w.real, &w.imaginaria);
+
+    resultadoSoma = soma(z, w);
+    resultadoSubtracao = subtracao(z, w);
+    resultadoProduto = produto(z, w);
+
+    moduloZ = modulo(z);
+    moduloW = modulo(w);
+
+    printf("\nSoma: %.2f + %.2fi\n", resultadoSoma.real, resultadoSoma.imaginaria);
+    printf("Subtração: %.2f + %.2fi\n", resultadoSubtracao.real, resultadoSubtracao.imaginaria);
+    printf("Produto: %.2f + %.2fi\n", resultadoProduto.real, resultadoProduto.imaginaria);
+    printf("Módulo de z: %.2f\n", moduloZ);
+    printf("Módulo de w: %.2f\n", moduloW);
+
+    return 0;
+}
+
+
+
+10.
+
+#include <stdio.h>
+#include <string.h>
+
+struct Pessoa {
+    char nome[50];
+    char endereco[100];
+    char telefone[20];
+};
+
+void ordenarPessoas(struct Pessoa pessoas[], int tamanho) {
+    int i, j;
+    struct Pessoa temp;
+
+    for (i = 0; i < tamanho - 1; i++) {
+        for (j = i + 1; j < tamanho; j++) {
+            if (strcmp(pessoas[i].nome, pessoas[j].nome) > 0) {
+                temp = pessoas[i];
+                pessoas[i] = pessoas[j];
+                pessoas[j] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    struct Pessoa pessoas[5];
+    int i;
+
+    printf("Digite os dados de 5 pessoas:\n");
+
+    for (i = 0; i < 5; i++) {
+        printf("Pessoa %d:\n", i + 1);
+
+        printf("Nome: ");
+        scanf(" %[^\n]s", pessoas[i].nome);
+
+        printf("Endereço: ");
+        scanf(" %[^\n]s", pessoas[i].endereco);
+
+        printf("Telefone: ");
+        scanf(" %[^\n]s", pessoas[i].telefone);
+
+        printf("\n");
+    }
+
+    ordenarPessoas(pessoas, 5);
+
+    printf("\n=== Pessoas em Ordem Alfabética ===\n");
+    for (i = 0; i < 5; i++) {
+        printf("Pessoa %d:\n", i + 1);
+        printf("Nome: %s\n", pessoas[i].nome);
+        printf("Endereço: %s\n", pessoas[i].endereco);
+        printf("Telefone: %s\n", pessoas[i].telefone);
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+11.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Aluno {
+    char nome[50];
+    int matricula;
+    float mediaFinal;
+};
+
+int main() {
+    struct Aluno alunos[10];
+    struct Aluno aprovados[10], reprovados[10];
+    int i, numAprovados = 0, numReprovados = 0;
+
+    printf("Digite os dados de 10 alunos:\n");
+
+    for (i = 0; i < 10; i++) {
+        printf("Aluno %d:\n", i + 1);
+
+        printf("Nome: ");
+        scanf(" %[^\n]s", alunos[i].nome);
+
+        printf("Matrícula: ");
+        scanf("%d", &alunos[i].matricula);
+
+        printf("Média Final: ");
+        scanf("%f", &alunos[i].mediaFinal);
+
+        printf("\n");
+    }
+
+    for (i = 0; i < 10; i++) {
+        if (alunos[i].mediaFinal >= 5.0) {
+            aprovados[numAprovados] = alunos[i];
+            numAprovados++;
+        } else {
+            reprovados[numReprovados] = alunos[i];
+            numReprovados++;
+        }
+    }
+
+    printf("\n=== Alunos Aprovados ===\n");
+    for (i = 0; i < numAprovados; i++) {
+        printf("Aluno %d:\n", i + 1);
+        printf("Nome: %s\n", aprovados[i].nome);
+        printf("Matrícula: %d\n", aprovados[i].matricula);
+        printf("Média Final: %.2f\n", aprovados[i].mediaFinal);
+        printf("\n");
+    }
+
+    printf("\n=== Alunos Reprovados ===\n");
+    for (i = 0; i < numReprovados; i++) {
+        printf("Aluno %d:\n", i + 1);
+        printf("Nome: %s\n", reprovados[i].nome);
+        printf("Matrícula: %d\n", reprovados[i].matricula);
+        printf("Média Final: %.2f\n", reprovados[i].mediaFinal);
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+
+12.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define NUM_CARTAS 52
+#define NUM_JOGADORES 2
+#define CARTAS_POR_JOGADOR 3
+
+struct Carta {
+    char valor[3];
+    char naipe[10];
+};
+
+void embaralhar(struct Carta baralho[]) {
+    int i, j;
+    struct Carta temp;
+
+    for (i = 0; i < NUM_CARTAS; i++) {
+        j = rand() % NUM_CARTAS;
+        temp = baralho[i];
+        baralho[i] = baralho[j];
+        baralho[j] = temp;
+    }
+}
+
+void distribuirCartas(struct Carta baralho[], struct Carta mao[][CARTAS_POR_JOGADOR]) {
+    int i, j, k = 0;
+
+    for (i = 0; i < CARTAS_POR_JOGADOR; i++) {
+        for (j = 0; j < NUM_JOGADORES; j++) {
+            mao[j][i] = baralho[k++];
+        }
+    }
+}
+
+void exibirMao(struct Carta mao[][CARTAS_POR_JOGADOR]) {
+    int i, j;
+
+    for (i = 0; i < NUM_JOGADORES; i++) {
+        printf("Jogador %d:\n", i + 1);
+
+        for (j = 0; j < CARTAS_POR_JOGADOR; j++) {
+            printf("Carta %d: %s de %s\n", j + 1, mao[i][j].valor, mao[i][j].naipe);
+        }
+
+        printf("\n");
+    }
+}
+
+int main() {
+    struct Carta baralho[NUM_CARTAS];
+    struct Carta mao[NUM_JOGADORES][CARTAS_POR_JOGADOR];
+
+    int i, j, k = 0;
+
+    char valores[][3] = {"A ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 ", "10", "J ", "Q ", "K "};
+    char naipes[][10] = {"Paus", "Ouros", "Copas", "Espadas"};
+
+    for (i = 0; i < 13; i++) {
+        for (j = 0; j < 4; j++) {
+            strcpy(baralho[k].valor, valores[i]);
+            strcpy(baralho[k].naipe, naipes[j]);
+            k++;
+        }
+    }
+
+    srand(time(NULL));
+    embaralhar(baralho);
+
+    distribuirCartas(baralho, mao);
+
+    exibirMao(mao);
+
+    return 0;
+}
+
+
+
+13.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int validarDataNascimento(const char *data) {  
+    return 1;
+}
+
+int validarCEP(const char *cep) {
+    return 1;
+}
+
+int validarEmail(const char *email) {
+    return 1;
+}
+
+int main() {
+    char nome[100];
+    char endereco[100];
+    char dataNascimento[11];
+    char cidade[100];
+    char cep[9];
+    char email[100];
+
+    printf("Digite seu nome: ");
+    fgets(nome, sizeof(nome), stdin);
+    nome[strcspn(nome, "\n")] = '\0';
+
+    printf("Digite seu endereço: ");
+    fgets(endereco, sizeof(endereco), stdin);
+    endereco[strcspn(endereco, "\n")] = '\0';
+
+    printf("Digite sua data de nascimento (DD/MM/AAAA): ");
+    fgets(dataNascimento, sizeof(dataNascimento), stdin);
+    dataNascimento[strcspn(dataNascimento, "\n")] = '\0';
+
+    printf("Digite sua cidade: ");
+    fgets(cidade, sizeof(cidade), stdin);
+    cidade[strcspn(cidade, "\n")] = '\0';
+
+    printf("Digite seu CEP: ");
+    fgets(cep, sizeof(cep), stdin);
+    cep[strcspn(cep, "\n")] = '\0';
+
+    printf("Digite seu e-mail: ");
+    fgets(email, sizeof(email), stdin);
+    email[strcspn(email, "\n")] = '\0';
+
+    int dadosValidos = 1;
+
+    if (!validarDataNascimento(dataNascimento) || !validarCEP(cep) || !validarEmail(email)) {
+        printf("\nAlgumas informações estão incorretas. Por favor, verifique seus dados.\n");
+        dadosValidos = 0;
+    }
+
+    if (dadosValidos) {
+        printf("\nInformações fornecidas:\n");
+        printf("Nome: %s\n", nome);
+        printf("Endereço: %s\n", endereco);
+        printf("Data de Nascimento: %s\n", dataNascimento);
+        printf("Cidade: %s\n", cidade);
+        printf("CEP: %s\n", cep);
+        printf("E-mail: %s\n", email);
+    }
+
+    return 0;
+}
+
+
+
+14.
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_CARROS 5
+#define TAM_MARCA 16
+
+struct Carro {
+    char marca[TAM_MARCA];
+    int ano;
+    float preco;
+};
+
+int main() {
+    struct Carro carros[MAX_CARROS];
+    int i;
+
+    for (i = 0; i < MAX_CARROS; i++) {
+        printf("Carro %d:\n", i + 1);
+
+        printf("Digite a marca (max 15 letras): ");
+        fgets(carros[i].marca, TAM_MARCA, stdin);
+        carros[i].marca[strcspn(carros[i].marca, "\n")] = '\0';
+
+        printf("Digite o ano: ");
+        scanf("%d", &carros[i].ano);
+
+        printf("Digite o preco: ");
+        scanf("%f", &carros[i].preco);
+
+        while (getchar() != '\n')
+            ;
+        printf("\n");
+    }
+
+    float valorLimite;
+    do {
+        printf("Digite um valor limite (0 para sair): ");
+        scanf("%f", &valorLimite);
+
+        if (valorLimite == 0)
+            break;
+
+        printf("\nCarros com preco menor que %.2f:\n", valorLimite);
+        int encontrado = 0;
+        for (i = 0; i < MAX_CARROS; i++) {
+            if (carros[i].preco < valorLimite) {
+                printf("Carro %d:\n", i + 1);
+                printf("Marca: %s\n", carros[i].marca);
+                printf("Ano: %d\n", carros[i].ano);
+                printf("Preco: %.2f\n\n", carros[i].preco);
+                encontrado = 1;
+            }
+        }
+
+        if (!encontrado)
+            printf("Nenhum carro encontrado com preco menor que %.2f\n\n", valorLimite);
+
+        while (getchar() != '\n')
+            ;
+    } while (1);
+
+    printf("Programa encerrado.\n");
+
+    return 0;
+}
+
+
+15.
+
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LIVROS 5
+#define TAM_TITULO 31
+#define TAM_AUTOR 16
+
+struct Livro {
+    char titulo[TAM_TITULO];
+    char autor[TAM_AUTOR];
+    int ano;
+};
+
+int main() {
+    struct Livro livros[MAX_LIVROS];
+    int i;
+
+    for (i = 0; i < MAX_LIVROS; i++) {
+        printf("Livro %d:\n", i + 1);
+
+        printf("Digite o titulo (max 30 letras): ");
+        fgets(livros[i].titulo, TAM_TITULO, stdin);
+        livros[i].titulo[strcspn(livros[i].titulo, "\n")] = '\0';
+
+        printf("Digite o autor (max 15 letras): ");
+        fgets(livros[i].autor, TAM_AUTOR, stdin);
+        livros[i].autor[strcspn(livros[i].autor, "\n")] = '\0';
+
+        printf("Digite o ano: ");
+        scanf("%d", &livros[i].ano);
+
+        while (getchar() != '\n')
+            ;
+        printf("\n");
+    }
+
+    char tituloBusca[TAM_TITULO];
+    printf("Digite o titulo do livro que deseja buscar: ");
+    fgets(tituloBusca, TAM_TITULO, stdin);
+    tituloBusca[strcspn(tituloBusca, "\n")] = '\0';
+
+    int encontrado = 0;
+    for (i = 0; i < MAX_LIVROS; i++) {
+        if (strcmp(livros[i].titulo, tituloBusca) == 0) {
+            printf("Livro encontrado:\n");
+            printf("Titulo: %s\n", livros[i].titulo);
+            printf("Autor: %s\n", livros[i].autor);
+            printf("Ano: %d\n\n", livros[i].ano);
+            encontrado = 1;
+        }
+    }
+
+    if (!encontrado)
+        printf("Nenhum livro encontrado com o titulo informado.\n");
+
+    return 0;
+}
+
+
+16.
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_COMPROMISSOS 5
+#define TAM_COMPROMISSO 61
+
+struct Data {
+    int dia;
+    int mes;
+    int ano;
+};
+
+struct Compromisso {
+    char descricao[TAM_COMPROMISSO];
+    struct Data data;
+};
+
+int main() {
+    struct Compromisso agenda[MAX_COMPROMISSOS];
+    int i;
+
+    for (i = 0; i < MAX_COMPROMISSOS; i++) {
+        printf("Compromisso %d:\n", i + 1);
+
+        printf("Digite a descricao do compromisso (max 60 letras): ");
+        fgets(agenda[i].descricao, TAM_COMPROMISSO, stdin);
+        agenda[i].descricao[strcspn(agenda[i].descricao, "\n")] = '\0';
+
+        printf("Digite o dia: ");
+        scanf("%d", &agenda[i].data.dia);
+
+        printf("Digite o mes: ");
+        scanf("%d", &agenda[i].data.mes);
+
+        printf("Digite o ano: ");
+        scanf("%d", &agenda[i].data.ano);
+
+        while (getchar() != '\n')
+            ;
+        printf("\n");
+    }
+
+    int mes, ano;
+    do {
+        printf("Digite o mes (0 para sair): ");
+        scanf("%d", &mes);
+
+        if (mes != 0) {
+            printf("Digite o ano: ");
+            scanf("%d", &ano);
+
+            printf("\nCompromissos para o mes %d do ano %d:\n", mes, ano);
+
+            for (i = 0; i < MAX_COMPROMISSOS; i++) {
+                if (agenda[i].data.mes == mes && agenda[i].data.ano == ano) {
+                    printf("Descricao: %s\n", agenda[i].descricao);
+                    printf("Data: %d/%d/%d\n\n", agenda[i].data.dia, agenda[i].data.mes, agenda[i].data.ano);
+                }
+            }
+        }
+    } while (mes != 0);
+
+    return 0;
+}
+
+
+
+17.
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_ELETRODOMESTICOS 5
+#define TAM_NOME 16
+
+struct Eletrodomestico {
+    char nome[TAM_NOME];
+    float potencia;
+    float tempoAtivo;
+};
+
+int main() {
+    struct Eletrodomestico eletrodomesticos[MAX_ELETRODOMESTICOS];
+    int i;
+    float tempoTotal = 0.0;
+    float consumoTotal = 0.0;
+
+    for (i = 0; i < MAX_ELETRODOMESTICOS; i++) {
+        printf("Eletrodomestico %d:\n", i + 1);
+
+        printf("Digite o nome do eletrodomestico (max 15 letras): ");
+        fgets(eletrodomesticos[i].nome, TAM_NOME, stdin);
+        eletrodomesticos[i].nome[strcspn(eletrodomesticos[i].nome, "\n")] = '\0';
+
+        printf("Digite a potencia do eletrodomestico (em kW): ");
+        scanf("%f", &eletrodomesticos[i].potencia);
+
+        printf("Digite o tempo ativo por dia do eletrodomestico (em horas): ");
+        scanf("%f", &eletrodomesticos[i].tempoAtivo);
+
+        while (getchar() != '\n')
+            ;
+        printf("\n");
+    }
+
+    float tempo;
+    printf("Digite o tempo em dias: ");
+    scanf("%f", &tempo);
+
+    for (i = 0; i < MAX_ELETRODOMESTICOS; i++) {
+        consumoTotal += eletrodomesticos[i].potencia * eletrodomesticos[i].tempoAtivo * tempo;
+        tempoTotal += eletrodomesticos[i].tempoAtivo * tempo;
+    }
+
+    printf("\nConsumo total na casa: %.2f kW\n", consumoTotal);
+    printf("Consumo relativo de cada eletrodomestico:\n");
+    for (i = 0; i < MAX_ELETRODOMESTICOS; i++) {
+        float consumoRelativo = (eletrodomesticos[i].potencia * eletrodomesticos[i].tempoAtivo * tempo) / consumoTotal * 100.0;
+        printf("%s: %.2f%%\n", eletrodomesticos[i].nome, consumoRelativo);
+    }
+
+    return 0;
+}
+
+
+
+18.
+
+#include <stdio.h>
+
+#define V 5 // Quantidade de voos
+#define A 5 // Quantidade de aeroportos
+
+struct Voo {
+    int origem;
+    int destino;
+};
+
+struct Aeroporto {
+    int codigo;
+    int voosSaida;
+    int voosChegada;
+};
+
+int main() {
+    struct Voo voos[V];
+    struct Aeroporto aeroportos[A];
+
+    printf("Informe os voos:\n");
+    for (int i = 0; i < V; i++) {
+        printf("Voo %d:\n", i + 1);
+        scanf("%d", &voos[i].origem);
+        scanf("%d", &voos[i].destino);
+    }
+
+    for (int i = 0; i < A; i++) {
+        aeroportos[i].codigo = i;
+        aeroportos[i].voosSaida = 0;
+        aeroportos[i].voosChegada = 0;
+    }
+
+    for (int i = 0; i < V; i++) {
+        int origem = voos[i].origem;
+        int destino = voos[i].destino;
+
+        if (origem >= 0 && origem < A)
+            aeroportos[origem].voosSaida++;
+
+        if (destino >= 0 && destino < A)
+            aeroportos[destino].voosChegada++;
+    }
+
+    printf("Aeroportos:\n");
+    for (int i = 0; i < A; i++) {
+        printf("Código: %d\n", aeroportos[i].codigo);
+        printf("Voos de saída: %d\n", aeroportos[i].voosSaida);
+        printf("Voos de chegada: %d\n", aeroportos[i].voosChegada);
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+
+
+20.
+
+#include <stdio.h>
+
+struct dma {
+    int dia;
+    int mes;
+    int ano;
+};
+
+int main() {
+    struct dma data1, data2;
+
+    printf("Digite a primeira data (dia mes ano): ");
+    scanf("%d %d %d", &data1.dia, &data1.mes, &data1.ano);
+
+    printf("Digite a segunda data (dia mes ano): ");
+    scanf("%d %d %d", &data2.dia, &data2.mes, &data2.ano);
+
+    int dias = 0;
+
+    while (data1.dia != data2.dia || data1.mes != data2.mes || data1.ano != data2.ano) {
+        dias++;
+        data1.dia++;
+
+        if (data1.dia > 31) {
+            data1.dia = 1;
+            data1.mes++;
+
+            if (data1.mes > 12) {
+                data1.mes = 1;
+                data1.ano++;
+            }
+        }
+    }
+
+    printf("Número de dias decorridos: %d\n", dias);
+
+    return 0;
+}
+
+
